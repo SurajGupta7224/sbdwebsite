@@ -1,0 +1,500 @@
+/* ========================================================
+   Root & Base Styles
+======================================================== */
+:root {
+  color-scheme: light !important;
+}
+
+html {
+  background-color: #F2F3F5 !important;
+  color: black !important;
+}
+
+body {
+  background-color: #F2F3F5 !important;
+  font-weight: 100 !important;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+/* aside {
+  background-color: #172C4B !important;
+} */
+/* ========================================================
+   Hide Side navbar before page ready 
+======================================================== */
+[x-cloak] { display: none; }
+
+/* ========================================================
+   Select2 Custom Styling
+======================================================== */
+.select2.border-red-500 .select2-selection {
+  border-color: #f87171 !important;
+}
+
+/* ========================================================
+   Transitions
+======================================================== */
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+  transition: all 0.2s ease-in-out !important;
+  transition-delay: 0 !important;
+}
+/* ========================================================
+   Google Translate Overrides
+======================================================== */
+.goog-te-banner-frame,
+.skiptranslate,
+.goog-logo-link,
+.goog-te-gadget img {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+.goog-te-gadget {
+  font-size: 0 !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+  margin: 0 !important;
+}
+
+/* ========================================================
+   Animations
+======================================================== */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse {
+  animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.star {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  width: 2px;
+  height: 2px;
+  pointer-events: none;
+  animation: twinkle 4s infinite, float 15s infinite ease-in-out;
+}
+
+/* ========================================================
+   DataTables Custom Styling
+======================================================== */
+div.dt-processing {
+  top: 70%;
+}
+
+div.dt-processing > div:last-child > div {
+  background: blue !important;
+}
+
+table.dataTable > thead > tr > th,
+table.dataTable > thead > tr > td {
+  border-bottom: 0px !important;
+}
+
+table thead th {
+  background-color: rgb(59 130 246) !important;
+  color: white !important;
+  text-align: center !important;
+}
+
+div.dt-container .dt-length,
+div.dt-container .dt-search,
+div.dt-container .dt-info,
+div.dt-container .dt-processing,
+div.dt-container .dt-paging {
+  color: black !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current,
+div.dt-container .dt-paging .dt-paging-button.current:hover {
+  color: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
+  background-color: blue !important;
+}
+
+.dt-type-numeric,
+.dt-type-date {
+  text-align: center !important;
+}
+
+/* ========================================================
+   jConfirm Dialogs
+======================================================== */
+.jconfirm-box {
+  background-color: white !important;
+  color: black !important;
+}
+
+.confirm-yes-btn {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+}
+
+.confirm-no-btn {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  padding: 10px 20px;
+  border-radius: 6px;
+}
+
+/* ========================================================
+   Typeahead
+======================================================== */
+.twitter-typeahead {
+  width: 100% !important;
+}
+
+.tt-menu {
+  width: 100% !important;
+  background-color: #fff !important;
+  border: 1px solid #1440b8 !important;
+  border-radius: 0.25rem !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+  margin-top: -1px !important;
+}
+
+.tt-suggestion {
+  padding: 8px 12px !important;
+  color: #333 !important;
+}
+
+.tt-suggestion:hover,
+.tt-cursor {
+  background-color: #F3F4F6 !important;
+}
+
+/* ========================================================
+   Highcharts
+======================================================== */
+.highcharts-label text {
+  fill: #1F2937 !important;
+  color: #1F2937 !important;
+}
+
+/* ========================================================
+   Select2 Custom Styling
+======================================================== */
+.select2-container .select2-selection {
+  background-color: #F9FAFB !important;
+  border: 1px solid #D1D5DB !important;
+  border-radius: 0.375rem !important;
+}
+
+.select2-container--default .select2-selection--single {
+  height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-left: 10px !important;
+  background-color: #F9FAFB !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 38px !important;
+  padding-left: 12px !important;
+  color: #111827 !important;
+  font-size: 0.875rem !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 38px !important;
+}
+
+.select2-container--default .select2-results__option--highlighted {
+  background-color: #1067b9 !important;
+  color: #fff !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+  min-height: 40px !important;
+  padding: 2px 8px !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  padding: 0 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #E5E7EB !important;
+  border: 1px solid #D1D5DB !important;
+  border-radius: 0.25rem !important;
+  margin: 3px 5px 3px 0 !important;
+  padding: 2px 6px !important;
+  font-size: 0.875rem !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection,
+.select2-container--default.select2-container--open .select2-selection {
+  border-color: #3B82F6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5) !important;
+  outline: none !important;
+}
+
+.select2-container--open .select2-selection--single {
+  border-color: #141fb8 !important;
+  box-shadow: 0 0 0 3px rgba(109, 126, 219, 0.5) !important;
+}
+
+.select2-dropdown {
+  border-color: #D1D5DB !important;
+  border-radius: 0.375rem !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  border: 1px solid #D1D5DB !important;
+  border-radius: 0.25rem !important;
+  padding: 6px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder,
+.select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+  color: #6B7280 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+  cursor: default;
+  padding-left: 15px !important;
+}
+
+/* ========================================================
+   Validation/Error Styles
+======================================================== */
+.error-message {
+  background-color: #ffe5e5;
+  color: #d9534f;
+  font-size: 0.875rem;
+  padding: 8px 12px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+  background-color: #fff5f5;
+}
+
+/* ========================================================
+   Flatpickr
+======================================================== */
+.flatpickr-wrapper {
+  width: 100% !important;
+  display: block !important;
+}
+
+.flatpickr-input {
+  width: 100% !important;
+}
+/* DATA TABLE PAGINATION CUSTOUM STYLE */
+.dt-paging-button.current{
+  border-radius: 15px !important;
+  background-color: #c6d0ff !important;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap");
+
+:root {
+  /* Colors */
+  --main-color: hsl(46, 100%, 50%);
+  --dark: hsl(0, 0%, 0%);
+  --light: hsl(0, 0%, 100%);
+  /* Fonts */
+  --title-font: "Montserrat", sans-serif;
+  --text-font: "Lato", sans-serif;
+}
+
+
+/* Text Styles inside tripdetails */
+.tripdetails .tripdetails-title-text {
+  font-size: 2.25rem;
+  font-family: var(--title-font);
+  color: var(--light);
+  line-height: 1.1;
+}
+
+.tripdetails .tripdetails-description {
+  font-family: var(--text-font);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--light);
+}
+
+.flow-container > * + * {
+  margin-top: var(--flow-space, 1em);
+}
+
+/* CARD COMPONENT */
+.tripdetails-card {
+  margin-left: 7%;
+  display: grid;
+  place-items: center;
+  width: 80vw;
+  max-width: 21.875rem;
+  height: 28.125rem;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+
+.tripdetails-card > * {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.tripdetails-bg {
+  object-fit: cover;
+  max-width: 100%;
+  height: 100%;
+}
+
+.tripdetails-content {
+  color: white;
+  --flow-space: 0.9375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: flex-end;
+  height: 55%;
+  padding: 12% 1.25rem 1.875rem;
+  background: linear-gradient(
+    180deg,
+    hsla(0, 0%, 0%, 0) 0%,
+    hsla(0, 0%, 0%, 0.3) 10%,
+    hsl(0, 0%, 0%) 100%
+  );
+}
+
+.tripdetails-content-container {
+  --flow-space: 1.25rem;
+}
+
+.tripdetails-title {
+  position: relative;
+  width: fit-content;
+}
+
+.tripdetails-title::after {
+  content: "";
+  position: absolute;
+  height: 0.3125rem;
+  width: calc(100% + 1.25rem);
+  bottom: calc((1.25rem - 0.5rem) * -1);
+  left: -1.25rem;
+  background-color: var(--main-color);
+}
+
+.tripdetails-button {
+  padding: 0.75em 1.6em;
+  width: fit-content;
+  font-variant: small-caps;
+  font-weight: bold;
+  border-radius: 0.45em;
+  border: none;
+  background-color: var(--main-color);
+  font-family: var(--title-font);
+  font-size: 1.125rem;
+  color: var(--dark);
+}
+
+.tripdetails-button:focus {
+  outline: 2px solid black;
+  outline-offset: -5px;
+}
+
+/* GRID LAYOUT FOR 3 COLUMNS */
+
+
+/* HOVER EFFECTS FOR NEW CLASSES */
+@media (any-hover: hover) and (any-pointer: fine) {
+  .tripdetails-content {
+    transform: translateY(62%);
+    transition: transform 500ms ease-out;
+    transition-delay: 500ms;
+  }
+
+  .tripdetails-title::after {
+    opacity: 0;
+    transform: scaleX(0);
+    transition: opacity 1000ms ease-in, transform 500ms ease-out;
+    transition-delay: 500ms;
+    transform-origin: right;
+  }
+
+  .tripdetails-bg {
+    transition: transform 500ms ease-in;
+  }
+
+  .tripdetails-content-container > :not(.tripdetails-title),
+  .tripdetails-button {
+    opacity: 0;
+    transition: transform 500ms ease-out, opacity 500ms ease-out;
+  }
+
+  .tripdetails-card:hover,
+  .tripdetails-card:focus-within {
+    transform: scale(1.05);
+    transition: transform 500ms ease-in;
+  }
+
+  .tripdetails-card:hover .tripdetails-content,
+  .tripdetails-card:focus-within .tripdetails-content {
+    transform: translateY(0);
+    transition: transform 500ms ease-in;
+  }
+
+  .tripdetails-card:focus-within .tripdetails-content {
+    transition-duration: 0ms;
+  }
+
+  .tripdetails-card:hover .tripdetails-bg,
+  .tripdetails-card:focus-within .tripdetails-bg {
+    transform: scale(1.3);
+  }
+
+  .tripdetails-card:hover .tripdetails-content-container > :not(.tripdetails-title),
+  .tripdetails-card:hover .tripdetails-button,
+  .tripdetails-card:focus-within .tripdetails-content-container > :not(.tripdetails-title),
+  .tripdetails-card:focus-within .tripdetails-button {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+    transition-delay: 1000ms;
+  }
+
+  .tripdetails-card:hover .tripdetails-title::after,
+  .tripdetails-card:focus-within .tripdetails-title::after {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: opacity 500ms ease-in, transform 500ms ease-in;
+    transition-delay: 500ms;
+  }
+}
+
+.carousel-item{
+  height: 450px;
+  
+}

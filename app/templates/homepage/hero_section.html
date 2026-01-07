@@ -1,0 +1,47 @@
+<section class="relative  bg-gradient-to-r from-[#d6e4ff] via-[#e0e8ff] to-[#f0eaff] pb-44"
+         style="background-image: url('https://s3.rdbuz.com/Images/responsiveweb/HomeSaleBanner.webp'); background-size: cover; background-position: center; height: 300px;">
+  <!-- Form stays unchanged -->
+  <div class="absolute inset-x-0 bottom-0 translate-y-1/2 z-10 flex justify-center px-4">
+    <form class="w-full max-w-6xl">
+      <div class="bg-white rounded-[2rem] p-4 sm:p-6 shadow-xl flex flex-col lg:flex-row gap-4 items-stretch">
+
+        <!-- From -->
+        <div class="flex items-center border rounded-xl px-4 py-3 w-full flex-1">
+          <i class="fa-solid fa-bus text-black mr-2"></i>
+          <input type="text" placeholder="From" class="outline-none w-full text-sm text-black placeholder:text-gray-500 font-semibold" />
+        </div>
+
+        <!-- To -->
+        <div class="flex items-center border rounded-xl px-4 py-3 w-full flex-1">
+          <i class="fa-solid fa-bus text-black mr-2 rotate-180"></i>
+          <input type="text" placeholder="To" class="outline-none w-full text-sm text-black placeholder:text-gray-500 font-semibold" />
+        </div>
+
+        <!-- Date Picker -->
+        <div class="flex items-center border rounded-xl px-4 py-3 w-full lg:w-64">
+          <i class="fa-solid fa-calendar-days text-black mr-2"></i>
+          <div class="text-left w-full">
+            <label for="datePicker" class="block text-xs text-gray-500 font-semibold leading-tight">Date of Journey</label>
+            <input type="text" id="datePicker" name="journey_date" value="2025-07-05"
+                   class="outline-none w-full text-sm font-bold text-black bg-transparent" />
+          </div>
+        </div>
+
+        <!-- Search Button -->
+        <div class="flex items-center border rounded-xl px-4 py-3 w-full lg:w-72 gap-2">
+          <div class="flex flex-col text-left flex-grow">
+            <button type="submit"
+                    class="bg-[#eb2e2e] hover:bg-[#d82626] text-white font-bold px-10 py-3 rounded-full shadow-lg transition duration-200 text-base">
+              <i class="fa-solid fa-magnifying-glass mr-2"></i> Search 
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+
+
+
+

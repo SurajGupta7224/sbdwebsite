@@ -1,0 +1,121 @@
+<!-- ========== FOOTER START ========== -->
+<footer class="bg-white border-t border-gray-200">
+  <div class="container mx-auto max-w-6xl px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    
+    <!-- Brand Info -->
+    <div>
+      <h3 class="text-base font-semibold text-gray-900 mb-2">About us</h3>
+      <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+        Reliable and affordable car rentals for your city and outstation journeys.
+        Experience comfort, safety, and convenience with every ride.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h4 class="text-sm font-semibold text-gray-900 mb-2">Quick Links</h4>
+      <ul class="space-y-1.5 text-xs sm:text-sm text-gray-600">
+        <li><a href="#" class="hover:text-blue-600 transition">Home</a></li>
+        <li><a href="#" class="hover:text-blue-600 transition">About Us</a></li>
+        <li><a href="#" class="hover:text-blue-600 transition">FAQs</a></li>
+        <li><a href="#" class="hover:text-blue-600 transition">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Social -->
+    <div>
+      <h4 class="text-sm font-semibold text-gray-900 mb-2">Follow us</h4>
+      <ul class="flex items-center gap-3 text-gray-600">
+        <li>
+          <a href="#" aria-label="Facebook" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 hover:border-blue-600 hover:text-blue-600 transition">
+            <i class="fab fa-facebook-f text-sm"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" aria-label="LinkedIn" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 hover:border-blue-600 hover:text-blue-600 transition">
+            <i class="fab fa-linkedin-in text-sm"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" aria-label="Instagram" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 hover:border-pink-600 hover:text-pink-600 transition">
+            <i class="fab fa-instagram text-sm"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4 class="text-sm font-semibold text-gray-900 mb-2">Contact Us</h4>
+      <ul class="space-y-1.5 text-xs sm:text-sm text-gray-600">
+        <li>
+          <span class="mr-1">📍</span>
+          <address class="not-italic">
+            SBD TOURS &amp; TRAVELS, SECL J&amp;K AREA, Jamuna Colliery Main Road, Near Gurudwara,
+            Opp. Dr. Kalam Stadium, District Anuppur (M.P.) 484444, India
+          </address>
+        </li>
+        <li><span class="mr-1">📞</span> <a href="tel:+919876543210" class="hover:text-blue-600 transition">+91 98765 43210</a></li>
+        <li><span class="mr-1">✉️</span> <a href="mailto:infosbdbooking@gmail.com" class="hover:text-blue-600 transition">infosbdbooking@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-gray-200">
+    <p class="text-center text-xs sm:text-sm text-gray-500 py-3">
+      © <span id="yy"></span> SBD Tour and Travels. All rights reserved.
+    </p>
+  </div>
+</footer>
+<!-- ========== FOOTER END ========== -->
+
+<!-- ========== CORE LIBRARIES ========== -->
+<script src="{{ url_for('static', filename='dist/Jquery3.7/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Jquery3.7/jquery-ui.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Jquery3.7/jquery.validate.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Jquery3.7/jquery.form.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Jquery3.7/popper.min.js') }}"></script>
+
+<!-- ========== UI LIBRARIES ========== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+<script src="{{ url_for('static', filename='dist/Jconfirm3.3/jquery-confirm.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Fontawesome6.6/all.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/select2/select2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Toastr2.1.4/toastr.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Lightbox2.1/lightbox.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Flatpickr/flatpickr.min.js') }}"></script>
+
+<!-- ========== DATATABLES ========== -->
+<script src="{{ url_for('static', filename='dist/Datatable2.18/dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Datatable2.18/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Datatable2.18/buttons.colVis.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Datatable2.18/buttons.html5.min.js') }}"></script>
+
+<!-- ========== OTHER LIBRARIES ========== -->
+<script src="{{ url_for('static', filename='dist/Typeahead/typeahead.bundle.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ url_for('static', filename='dist/Razor/checkout.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/Lottie5.12/lottie.min.js') }}"></script>
+
+<!-- ========== HIGHCHARTS ========== -->
+<script src="{{ url_for('static', filename='dist/Highcharts12/highcharts.js') }}"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<!-- ========== GOOGLE TRANSLATE ========== -->
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- ========== GOOGLE MAPS (Places API) ========== -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwqf4NpjMnz8J-LuEwgJAdVrn_1_5Zt6g&libraries=places"></script>
+
+<!-- ========== CUSTOM APP JS ========== -->
+ <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+</html>

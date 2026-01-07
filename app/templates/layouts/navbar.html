@@ -1,0 +1,73 @@
+<nav class="bg-white/95 backdrop-blur sticky top-0 z-50 shadow border-b">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+
+      <!-- LEFT SECTION -->
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center">
+          <img src="{{ url_for('static', filename='images/logo/sbdlogo.png') }}"
+               alt="Logo"
+               class="h-12 w-auto">
+        </a>
+      </div>
+
+      <!-- RIGHT SECTION -->
+      <div class="flex items-center space-x-4 text-sm text-gray-700">
+
+        <!-- Bookings -->
+        <a href="#" class="flex items-center hover:text-red-600">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M20 12a2 2 0 012-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v3a2 2 0 012 2 2 2 0 01-2 2v3a2 2 0 002 2h16a2 2 0 002-2v-3a2 2 0 01-2-2z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v8" />
+          </svg>
+          Bookings
+        </a>
+
+        <!-- Help -->
+        <a href="#" class="flex items-center hover:text-red-600">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 18h.01M12 14a4 4 0 100-8 4 4 0 000 8z" />
+          </svg>
+          Help
+        </a>
+
+        <!-- ACCOUNT / PROFILE -->
+        <div class="relative" id="accountWrapper">
+
+          <!-- LOGIN BUTTON (Guest) -->
+          <button id="openLogin"
+            class="flex items-center hover:text-red-600 focus:outline-none">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M5.121 17.804A7.5 7.5 0 0112 15a7.5 7.5 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            Account
+          </button>
+
+          <!-- USER AVATAR (Logged In) -->
+          <button id="userAvatar"
+            class="hidden focus:outline-none">
+            <img id="profileImage"
+              src=""
+              alt="Profile"
+              class="w-9 h-9 rounded-full border object-cover">
+          </button>
+
+          <!-- DROPDOWN -->
+          <div id="userDropdown"
+            class="hidden absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border text-sm">
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100">My Profile</a>
+            <button id="logoutBtn"
+              class="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
+              Logout
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>

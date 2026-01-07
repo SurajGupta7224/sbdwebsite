@@ -1,0 +1,41 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}SBD{% endblock %}</title>
+    <link rel="icon" href="" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Light mode forcing -->
+    <script>
+      function preventDarkMode() {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.style.backgroundColor = "#ffffff";
+          document.documentElement.style.color = "#000000";
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      }
+      preventDarkMode();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', preventDarkMode);
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Static CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/Datatable2.18/dataTables.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/Datatable2.18/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/Toastr2.1.4/toastr.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/Jconfirm3.3/jquery-confirm.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/Lightbox2.1/lightbox.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/Flatpickr/flatpickr.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+    
+    <!-- TinyMCE -->
+    <script src="{{ url_for('static', filename='dist/tinymce/tinymce.min.js') }}"></script>
+  </head>
+  <body>
+  

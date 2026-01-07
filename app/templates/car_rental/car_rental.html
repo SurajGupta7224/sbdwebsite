@@ -1,0 +1,57 @@
+<section class="container mx-auto px-4 py-12 mt-32 sm:mt-16">
+  <div class="text-center mb-8">
+    <h2 class="text-2xl font-bold text-black">Popular Rental Cars</h2>
+    <p class="mt-1 text-gray-600 text-sm">
+      Choose from our most trusted vehicles for your trip
+    </p>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+    {% for car in cars %}
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4 flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
+
+      <div>
+        <!-- ❌ Small car / Minivan line REMOVED -->
+
+        <h3 class="text-base font-semibold text-gray-900">
+          {{ car.car_name }} 
+        </h3>
+
+        <img
+          src="{{ car.car_photos }}"
+          alt="Car Image"
+          class="w-full h-28 object-contain my-2"
+        >
+
+        <div class="flex items-center text-gray-600 text-xs space-x-3 mb-2">
+          <span>👥 {{ car.max_passengers }}</span>
+          <span>🧳 {{ car.max_bags }}</span>
+          <span>🚘 {{ 'AC' if car.is_ac == 1 else 'Non-AC' }}</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-sm">
+        <span class="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-0.5">
+          <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81H6.93a1 1 0 00.95-.69l1.17-3.292z"/></svg>
+          <strong>{{ car.rating_value }}</strong>/5 · {{ car.rating_count }} reviews
+        </span>
+        <a
+          href="{{ url_for('car_detail', car_id=car.id) }}"
+          class="inline-block bg-[#eb2e2e] text-white px-3 py-1.5 text-xs rounded hover:bg-[#d82626] transition"
+        >
+          View deal
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+    {% if cars|length == 0 %}
+      <p class="text-center col-span-3 text-gray-500">
+        No cars available right now
+      </p>
+    {% endif %}
+
+  </div>
+</section>

@@ -1,4 +1,18 @@
 $(document).ready(function () {
+    /**
+     * Helper to show toast using the custom toastr plugin
+     */
+    function showToast(title, message, type = "info") {
+        if ($.toastr && typeof $.toastr[type] === 'function') {
+            $.toastr[type](message, title);
+        } else {
+            console.error("Toastr helper failed:", {title, message, type});
+            // Fallback to simple alert if toastr fails
+            alert(title + ": " + message);
+        }
+    }
+
+
     // =====================================================
     // LOGIN MODAL (MOBILE + PASSWORD) + AUTH CHECK
     // =====================================================
@@ -482,83 +496,79 @@ $(document).ready(function () {
     // FARE BREAKDOWN RENDER
     ===================================================== */         
  function renderFareBreakdown(carData) {
+  if (!carData) return;
 
-  if (!carData || !carData.charges) return;
-
-  const charges = carData.charges;
   const tripType = $("#trip_type").val();
+  const apiTripType = tripType === "oneway" ? "one_way" : "round_trip";
+  const billableKm = parseFloat($("#billable_km").val() || 0);
 
-  const rangeKm    = parseFloat($("#range_km").val() || 0);      // 50.86
-  const billableKm = parseFloat($("#billable_km").val() || 0);  // 101.73
-
-  let html = "";
-  let totalFare = 0;
-
-  /* ===== KM CHARGES ===== */
-  if (charges[1] && billableKm > 0) {
-
-    charges[1].forEach(slab => {
-
-      const min = slab.min_km ?? 0;
-      const max = slab.max_km ?? Infinity;
-
-      // ✅ RANGE CHECK = Pickup → Drop
-      if (rangeKm >= min && rangeKm <= max) {
-
-        const rate = parseFloat(slab.amount);
-        const fare = billableKm * rate;
-
-        totalFare += fare;
-
-        html += `
-          <div class="flex justify-between">
-            <span>${slab.title} (${billableKm.toFixed(2)} km × ₹${rate})</span>
-            <span>₹ ${fare.toFixed(0)}</span>
-          </div>`;
-      }
-    });
+  if (billableKm <= 0) {
+      $("#fareBreakdown").html("");
+      $("#totalFareBottom").text("0");
+      $("#totalFareSticky").text("0");
+      $("#totalFare").text("0");
+      return;
   }
 
-  /* ===== OTHER CHARGES ===== */
-  Object.keys(charges).forEach(typeId => {
+  // Show a loading state
+  $("#fareBreakdown").html('<div class="text-gray-500 text-center py-2"><i class="fas fa-spinner fa-spin mr-2"></i> Calculating fare...</div>');
 
-    typeId = parseInt(typeId);
+  const payload = {
+    car_id: carData.id,
+    distance_km: billableKm,
+    trip_type: apiTripType,
+    stay_duration: "short", // Hardcoded per user prompt
+    waiting_minutes: 0,
+    is_ac: carData.is_ac == 1 || carData.is_ac === true
+  };
 
-    if (typeId === 1) return;
+  $.ajax({
+    url: "/calculate-charges",
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(payload),
+    success: function (res) {
+      if (res && res.success && res.data) {
+        const data = res.data;
+        let html = "";
+        
+        if (data.charges_breakdown && data.charges_breakdown.length > 0) {
+          data.charges_breakdown.forEach(charge => {
+            let label = charge.type || charge.charge_type;
+            
+            // Format distance & rate if not already in label
+            if (charge.distance && charge.rate && !label.includes('km')) {
+                label += ` (${charge.distance} km × ${data.currency || '₹'}${charge.rate})`;
+            }
+            
+            html += `
+              <div class="flex justify-between">
+                <span>${label}</span>
+                <span>${data.currency || '₹'} ${Math.round(charge.amount)}</span>
+              </div>`;
+          });
+        } else {
+            html = '<div class="text-gray-500">No charges applied.</div>';
+        }
 
-    // ❌ one-way me night & driver skip
-    if (tripType === "oneway" && [2, 6].includes(typeId)) return;
-
-    charges[typeId].forEach(item => {
-
-      const min = item.min_km ?? 0;
-      const max = item.max_km ?? Infinity;
-
-      // ✅ SAME RANGE LOGIC
-      if (!(rangeKm >= min && rangeKm <= max)) return;
-
-      let amount = 0;
-      const unit = parseInt(item.charge_unit);
-
-      if (unit === 0) amount = parseFloat(item.amount);                 // flat
-      if (unit === 1) amount = billableKm * parseFloat(item.amount);   // per km
-      if (unit === 2) amount = parseFloat(item.amount);                // per hour
-
-      if (amount > 0) {
-        totalFare += amount;
-        html += `
-          <div class="flex justify-between">
-            <span>${item.title}</span>
-            <span>₹ ${amount.toFixed(0)}</span>
-          </div>`;
+        $("#fareBreakdown").html(html);
+        
+        const total = Math.round(data.total_amount || 0);
+        $("#totalFareBottom").text(total);
+        $("#totalFareSticky").text(total);
+        $("#totalFare").text(total);
+      } else {
+        $("#fareBreakdown").html('<div class="text-red-500 text-sm">Failed to calculate fare properly.</div>');
       }
-    });
+    },
+    error: function (xhr) {
+      console.error("Fare calculation error:", xhr.responseText);
+      const err = xhr.responseJSON || {};
+      const msg = err.error || err.debug || err.message || "Error calculating fare. Please check connection.";
+      $("#fareBreakdown").html(`<div class="text-red-500 text-sm">${msg}</div>`);
+      showToast("Calculation Error", msg, "error");
+    }
   });
-
-  $("#fareBreakdown").html(html);
-  $("#totalFareBottom").text(totalFare.toFixed(0));
-  $("#totalFare").text(totalFare.toFixed(0));
-  $("#totalFareSticky").text(totalFare.toFixed(0));
 }
 
 
@@ -1424,5 +1434,121 @@ $(document).ready(function () {
         }
     });
 
+    // =====================================================
+    // PLACE BOOKING (SUBMIT FORM)
+    // =====================================================
+    $("#bookingForm").on("submit", function (e) {
+        e.preventDefault();
+        
+        if (!window.CAR_DATA) {
+            showToast("Error", "Car data is missing. Please refresh the page.", "error");
+            return;
+        }
+
+        const btn = $(this).find('button[type="submit"]');
+        const originalText = btn.text();
+        
+        // Basic Validation
+        const pickup = $("#pickup").val();
+        const drop = $("#drop").val();
+        const custName = $("#custName").val();
+        const custPhone = $("#custPhone").val();
+
+        if (!pickup || !drop) {
+            showToast("Warning", "Please select pickup and drop locations on the map.", "warning");
+            return;
+        }
+        if (!custName || !custPhone) {
+            showToast("Warning", "Please enter your name and mobile number.", "warning");
+            return;
+        }
+
+        btn.html('<i class="fas fa-spinner fa-spin mr-2"></i> Booking...').prop('disabled', true);
+
+        const tripType = $("#trip_type").val() === "oneway" ? "one_way" : "round_trip";
+        const oneWayKm = parseFloat($("#range_km").val() || 0);
+        
+        const payload = {
+            car_id: window.CAR_DATA.id,
+            trip_type: tripType,
+            stay_duration: "short",
+            is_ac: window.CAR_DATA.is_ac == 1,
+            
+            // Pickup details
+            pickup_address: pickup,
+            pickup_lat: $("#pickup_lat").val(),
+            pickup_lng: $("#pickup_lng").val(),
+            
+            // Drop details
+            drop_address: drop,
+            drop_lat: $("#drop_lat").val(),
+            drop_lng: $("#drop_lng").val(),
+            
+            // Return details (only if round_trip)
+            return_pickup_address: tripType === "round_trip" ? $("#return_pickup").val() : null,
+            return_pickup_lat: tripType === "round_trip" ? $("#return_pickup_lat").val() : null,
+            return_pickup_lng: tripType === "round_trip" ? $("#return_pickup_lng").val() : null,
+            return_drop_address: tripType === "round_trip" ? $("#return_drop").val() : null,
+            return_drop_lat: tripType === "round_trip" ? $("#return_drop_lat").val() : null,
+            return_drop_lng: tripType === "round_trip" ? $("#return_drop_lng").val() : null,
+            
+            // Distance
+            distance_km: oneWayKm,
+            return_km: tripType === "round_trip" ? parseFloat($("#distance_value").val() || 0) - oneWayKm : 0,
+            
+            // Schedule
+            pickup_date: $("#pickupDate").val(),
+            pickup_time: $("#pickupTime").val(),
+            return_date: tripType === "round_trip" ? $("#returnDate").val() : null,
+            return_time: tripType === "round_trip" ? $("#returnTime").val() : null,
+            
+            // Passengers
+            passengers: $("#pax").val(),
+            bags: $("#bags").val(),
+            notes_for_driver: $("#notes").val(),
+            
+            // Customer
+            customer_name: custName,
+            customer_mobile: custPhone,
+            
+            // Extras
+            coupon_code: $("#coupon").val(),
+            waiting_minutes: 0,
+            estimated_toll: parseFloat($("#toll_value").val() || 0)
+        };
+
+        const token = localStorage.getItem("customer_token");
+        const headers = {};
+        if (token) {
+            headers["Authorization"] = "Bearer " + token;
+        }
+
+        $.ajax({
+            url: "/place-order",
+            type: "POST",
+            headers: headers,
+            contentType: "application/json",
+            data: JSON.stringify(payload),
+            success: function (res) {
+                if (res.status === 1) {
+                    showToast("Success", "Booking confirmed! Redirecting...", "success");
+                    // Redirect to a success page or home after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = "/";
+                    }, 2000);
+                } else {
+                    showToast("Error", res.message || "Failed to place order.", "error");
+                    btn.text(originalText).prop('disabled', false);
+                }
+            },
+            error: function (xhr) {
+                console.error("Booking failed:", xhr.responseText);
+                const err = xhr.responseJSON || {};
+                const msg = err.error || err.debug || err.message || "Something went wrong while placing the order.";
+                showToast("Error", msg, "error");
+                btn.text(originalText).prop('disabled', false);
+            }
+        });
+    });
 
 });

@@ -125,7 +125,7 @@ def car_detail(car_id):
     car["is_ac"] = int(car.get("is_ac", 0))
     car["rating_value"] = float(car.get("rating_value", 0))
     car["rating_count"] = int(car.get("rating_count", 0))
-    car["min_trip_amount"] = float(car.get("min_trip_amount", 0))
+    car["min_trip_amount"] = float(car.get("min_trip_amount") or 0)
 
     # ✅ NO MEDIA_BASE_URL
     # API already gives full image URL
@@ -135,6 +135,71 @@ def car_detail(car_id):
         'car_rental/car_detail.html',
         car=car
     )
+
+
+# ======================
+# CALCULATE CHARGES PROXY
+# ======================
+@app.route('/calculate-charges', methods=['POST'])
+def calculate_charges():
+    try:
+        payload = request.get_json()
+        if not payload:
+            return jsonify({"status": 0, "message": "Invalid request data"}), 400
+
+        api_url = f"{API_BASE_URL}/calculate-charges"
+        response = requests.post(api_url, json=payload, timeout=10)
+        
+        try:
+            data = response.json()
+        except ValueError:
+            return jsonify({
+                "status": 0, 
+                "message": "Invalid response from API",
+                "debug": response.text[:500]
+            }), 502
+
+        return jsonify(data), response.status_code
+
+    except Exception as e:
+        print("CALCULATE CHARGES API ERROR:", e)
+        return jsonify({"status": 0, "message": "Failed to calculate charges"}), 500
+
+
+# ======================
+# PLACE ORDER PROXY
+# ======================
+@app.route('/place-order', methods=['POST'])
+def place_order():
+    try:
+        payload = request.get_json()
+        if not payload:
+            return jsonify({"status": 0, "message": "Invalid request data"}), 400
+
+        api_url = f"{API_BASE_URL}/cab-orders"
+        
+        # Forward the bearer token if it exists (for logged-in users)
+        headers = {'Content-Type': 'application/json'}
+        auth_header = request.headers.get('Authorization')
+        if auth_header:
+            headers['Authorization'] = auth_header
+
+        response = requests.post(api_url, json=payload, headers=headers, timeout=15)
+        
+        try:
+            data = response.json()
+        except ValueError:
+            return jsonify({
+                "status": 0, 
+                "message": "Invalid response from API",
+                "debug": response.text[:500]
+            }), 502
+
+        return jsonify(data), response.status_code
+
+    except Exception as e:
+        print("PLACE ORDER API ERROR:", e)
+        return jsonify({"status": 0, "message": "Failed to place order"}), 500
 
 
 # ======================
